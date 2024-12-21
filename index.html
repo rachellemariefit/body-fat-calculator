@@ -4,33 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Body Fat Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f4f4;
+            border-radius: 8px;
+        }
+        .results p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="calculator-container">
+    <div class="calculator">
         <h1>Body Fat Calculator</h1>
-        <form id="calculator-form">
-            <label for="weight">Weight (lbs):</label>
-            <input type="number" id="weight" required>
-            
-            <label for="waist">Waist Circumference (inches):</label>
-            <input type="number" id="waist" required>
-            
-            <label for="neck">Neck Circumference (inches):</label>
-            <input type="number" id="neck" required>
-            
-            <label for="height">Height (inches):</label>
-            <input type="number" id="height" required>
-            
-            <button type="button" id="calculate-btn">Calculate</button>
-        </form>
-        
-        <div id="results" class="results">
-            <p id="body-fat"></p>
-            <p id="category"></p>
+        <div class="input-group">
+            <label for="age">Age (years)</label>
+            <input type="number" id="age" placeholder="Enter your age">
         </div>
+        <div class="input-group">
+            <label for="gender">Gender</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" placeholder="Enter your weight">
+        </div>
+        <div class="input-group">
+            <label for="waist">Waist Circumference (cm)</label>
+            <input type="number" id="waist" placeholder="Enter your waist measurement">
+        </div>
+        <div class="input-group">
+            <label for="wrist">Wrist Circumference (cm)</label>
+            <input type="number" id="wrist" placeholder="Enter your wrist measurement">
+        </div>
+        <button class="button" onclick="calculateBodyFat()">Calculate</button>
+        <div class="results" id="results"></div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <script>
+        function calculateBodyFat() {
+            const age = parseFloat(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const waist = parseFloat(document.getElementById('waist').value);
+            const wrist = parseFloat(document.getElementById('wrist').value);
+            const resultsDiv = document.getElementById('results');
+
+            if (!age || !weight || !waist || !wrist) {
+                resultsDiv.innerHTML = '<p>Please fill out all fields.</p>';
+                return;
+            }
+
+            let bodyFatPercentage;
+
+            if (gender === 'male') {
+                // Simplified calculation for males
+                bodyFatPercentage = (waist * 0.74) - (weight * 0.082 + 34.89);
+            } else {
+                // Simplified calculation for females
+                bodyFatPercentage = (waist * 0.74) + (wrist / 3.14) - (weight * 0.082 + 44.74);
+            }
+
+            const muscleMassPercentage = 100 - bodyFatPercentage;
+            const category = bodyFatCategory(bodyFatPercentage, gender);
+
+            resultsDiv.innerHTML = `
+                <p><strong>Body Fat Percentage:</strong> ${bodyFatPercentage.toFixed(2)}%</p>
+                <p><strong>Muscle Mass Percentage:</strong> ${muscleMassPercentage.toFixed(2)}%</p>
+                <p><strong>Category:</strong> ${category}</p>
+            `;
+        }
+
+        function bodyFatCategory(bodyFatPercentage, gender) {
+            if (gender === 'male') {
+                if (bodyFatPercentage < 6) return 'Essential Fat';
+                if (bodyFatPercentage < 14) return 'Athletes';
+                if (bodyFatPercentage < 18) return 'Fitness';
+                if (bodyFatPercentage < 25) return 'Average';
+                return 'Obese';
+            } else {
+                if (bodyFatPercentage < 14) return 'Essential Fat';
+                if (bodyFatPercentage < 21) return 'Athletes';
+                if (bodyFatPercentage < 25) return 'Fitness';
+                if (bodyFatPercentage < 32) return 'Average';
+                return 'Obese';
+            }
+        }
+    </script>
 </body>
 </html>
