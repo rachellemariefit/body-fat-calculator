@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #f7d9d7, #e4cec8);
             color: #333;
         }
         .calculator {
@@ -28,7 +28,7 @@
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            color: #4caf50;
+            color: #d8c3b3;
         }
         .input-group {
             margin-bottom: 15px;
@@ -37,7 +37,7 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
-            color: #555;
+            color: #8b5e6b;
         }
         .input-group input, .input-group select {
             width: 100%;
@@ -47,11 +47,12 @@
             border-radius: 8px;
             font-size: 16px;
             color: #333;
+            background: #f4e8e7;
         }
         .button {
             width: 100%;
             padding: 12px;
-            background: #4caf50;
+            background: #f4a488;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -61,7 +62,7 @@
             transition: background 0.3s;
         }
         .button:hover {
-            background: #45a049;
+            background: #e48c72;
         }
         .results {
             margin-top: 20px;
@@ -82,7 +83,7 @@
             color: #aaa;
         }
         footer a {
-            color: #4caf50;
+            color: #d8c3b3;
             text-decoration: none;
         }
         footer a:hover {
@@ -105,16 +106,16 @@
             </select>
         </div>
         <div class="input-group">
-            <label for="weight">Weight (kg)</label>
+            <label for="weight">Weight (lbs)</label>
             <input type="number" id="weight" placeholder="Enter your weight">
         </div>
         <div class="input-group">
-            <label for="waist">Waist Circumference (cm)</label>
+            <label for="waist">Waist Circumference (inches)</label>
             <input type="number" id="waist" placeholder="Enter your waist measurement">
         </div>
         <div class="input-group">
-            <label for="wrist">Wrist Circumference (cm)</label>
-            <input type="number" id="wrist" placeholder="Enter your wrist measurement">
+            <label for="hip">Hip Circumference (inches)</label>
+            <input type="number" id="hip" placeholder="Enter your hip measurement">
         </div>
         <button class="button" onclick="calculateBodyFat()">Calculate</button>
         <div class="results" id="results"></div>
@@ -129,10 +130,10 @@
             const gender = document.getElementById('gender').value;
             const weight = parseFloat(document.getElementById('weight').value);
             const waist = parseFloat(document.getElementById('waist').value);
-            const wrist = parseFloat(document.getElementById('wrist').value);
+            const hip = parseFloat(document.getElementById('hip').value);
             const resultsDiv = document.getElementById('results');
 
-            if (!age || !weight || !waist || !wrist) {
+            if (!age || !weight || !waist || !hip) {
                 resultsDiv.innerHTML = '<p>Please fill out all fields.</p>';
                 return;
             }
@@ -140,11 +141,11 @@
             let bodyFatPercentage;
 
             if (gender === 'male') {
-                // Simplified calculation for males
-                bodyFatPercentage = (waist * 0.74) - (weight * 0.082 + 34.89);
+                // Formula for males: Example formula, adjust as needed
+                bodyFatPercentage = (495 / (1.0324 - 0.19077 * Math.log10(waist - hip) + 0.15456 * Math.log10(height))) - 450;
             } else {
-                // Simplified calculation for females
-                bodyFatPercentage = (waist * 0.74) + (wrist / 3.14) - (weight * 0.082 + 44.74);
+                // Formula for females: Example formula, adjust as needed
+                bodyFatPercentage = (495 / (1.29579 - 0.35004 * Math.log10(waist + hip) + 0.22100 * Math.log10(height))) - 450;
             }
 
             const muscleMassPercentage = 100 - bodyFatPercentage;
