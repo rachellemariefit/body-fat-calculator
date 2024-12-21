@@ -1,50 +1,71 @@
-/* Ensure the calculator container is centered */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .calculator-container {
-  width: 100%;
-  max-width: 600px; /* Set a max-width to limit the container's size */
-  margin: 0 auto;
+  background-color: white;
   padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
   text-align: center;
 }
 
-.calculator {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-/* Style the input fields */
-.calculator input[type="number"] {
-  width: 80%; /* Make the input fields take up 80% of the container's width */
-  max-width: 300px; /* Limit the input field's width to prevent it from becoming too wide */
-  margin: 10px auto; /* Automatically add margin to left and right to center */
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  display: block;
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-/* Button styling */
-.calculator button {
-  background-color: #e4a0c9; /* Soft rose gold */
+.input-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #d8a7c2; /* soft rose gold */
   color: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  display: block;
-  width: 50%; /* Make the button take up 50% of the container width */
-  margin: 20px auto; /* Center the button */
+  padding: 10px 20px;
   font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.calculator button:hover {
-  background-color: #9b4a7e; /* Dusty plum */
+button:hover {
+  background-color: #9b6f9a; /* dusty plum */
 }
 
-/* Result section */
-#result {
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+.results {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.results p {
+  margin-bottom: 10px;
 }
