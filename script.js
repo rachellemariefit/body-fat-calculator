@@ -5,6 +5,7 @@ function calculateBodyFat() {
     const neck = parseFloat(document.getElementById("neck").value);
     const height = parseFloat(document.getElementById("height").value);
 
+    // Check for valid input values
     if (!weight || !waist || !neck || !height) {
         alert("Please fill in all fields.");
         return;
