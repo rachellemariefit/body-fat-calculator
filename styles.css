@@ -1,4 +1,4 @@
-/* Styling for the overall container to center the calculator */
+/* Ensure the calculator container is centered */
 .calculator-container {
     display: flex;
     justify-content: center;
@@ -7,7 +7,7 @@
     background-color: #f0f0f0;
 }
 
-/* Styling for the actual calculator */
+/* Main styling for the calculator */
 .calculator {
     width: 300px; /* Set a fixed width for the calculator */
     padding: 20px;
@@ -17,20 +17,21 @@
     text-align: center;
 }
 
-/* Styling for the input fields */
-input {
-    width: 100%; /* Make input fields take up the full width of the container */
+/* Style the input fields */
+.calculator input {
+    width: calc(100% - 20px); /* Makes the input take full width minus padding */
     padding: 10px;
-    margin: 10px 0; /* Add vertical margin for spacing between the fields */
+    margin: 10px 0; /* Space between text boxes */
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center; /* Centers the text inside the text box */
+    text-align: center; /* Centers text within the input */
+    box-sizing: border-box; /* Ensures padding doesn’t affect width */
 }
 
-/* Styling for the button */
-button {
-    width: 100%; /* Make the button take up the full width */
+/* Button styling */
+.calculator button {
+    width: 100%; /* Full width button */
     padding: 10px;
     background-color: #F1C6C0; /* Soft rose gold */
     border: none;
@@ -39,11 +40,11 @@ button {
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #D4A3B8; /* Dusty plum hover effect */
+.calculator button:hover {
+    background-color: #D4A3B8; /* Dusty plum on hover */
 }
 
-/* Styling for the result section */
+/* Result section */
 #result {
     margin-top: 20px;
     font-size: 16px;
