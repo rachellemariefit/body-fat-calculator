@@ -1,28 +1,36 @@
-document.getElementById("calculateButton").addEventListener("click", function() {
-  // Get values from input fields
-  const weight = parseFloat(document.getElementById("weight").value);
-  const waist = parseFloat(document.getElementById("waist").value);
-  const neck = parseFloat(document.getElementById("neck").value);
-  const hip = parseFloat(document.getElementById("hip").value);
+// Function to calculate body fat percentage and category
+function calculateBodyFat() {
+    const weight = parseFloat(document.getElementById("weight").value);
+    const waist = parseFloat(document.getElementById("waist").value);
+    const neck = parseFloat(document.getElementById("neck").value);
+    const height = parseFloat(document.getElementById("height").value);
 
-  if (isNaN(weight) || isNaN(waist) || isNaN(neck) || isNaN(hip)) {
-    alert("Please fill out all fields with valid numbers.");
-    return;
-  }
+    if (!weight || !waist || !neck || !height) {
+        alert("Please fill in all fields.");
+        return;
+    }
 
-  // Use US Navy Method for body fat calculation
-  const bodyFatPercentage = calculateBodyFat(weight, waist, neck, hip);
-  const muscleMassPercentage = 100 - bodyFatPercentage; // Assuming body fat + muscle mass = 100%
+    // Calculate body fat percentage using the US Navy Method
+    const bodyFatPercentage = 495 / (1.29579 - 0.35004 * Math.log10(waist - neck) + 0.22100 * Math.log10(height)) - 450;
 
-  // Display results
-  document.getElementById("results").innerHTML = `
-    <p>Body Fat Percentage: ${bodyFatPercentage.toFixed(2)}%</p>
-    <p>Muscle Mass Percentage: ${muscleMassPercentage.toFixed(2)}%</p>
-  `;
-});
+    // Display results
+    const resultText = document.getElementById("body-fat");
+    const categoryText = document.getElementById("category");
 
-// US Navy Method to calculate body fat percentage for females
-function calculateBodyFat(weight, waist, neck, hip) {
-  const bodyFat = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(weight) - 78.387;
-  return bodyFat;
+    resultText.innerText = `Body Fat Percentage: ${bodyFatPercentage.toFixed(2)}%`;
+
+    // Determine body fat category
+    let category = "";
+    if (bodyFatPercentage < 18) {
+        category = "Healthy";
+    } else if (bodyFatPercentage >= 18 && bodyFatPercentage < 25) {
+        category = "Overweight";
+    } else {
+        category = "Obese";
+    }
+
+    categoryText.innerText = `Category: ${category}`;
 }
+
+// Event listener for the calculate button
+document.getElementById("calculate-btn").addEventListener("click", calculateBodyFat);
